@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080a12">
+<title>GOJO IMG HD</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+:root{
+  --bg:#080a12;
+  --panel:rgba(255,255,255,.055);
+  --line:rgba(255,255,255,.12);
+  --text:#f5f6ff;
+  --muted:#9098ad;
+  --purple:#8975ff;
+  --cyan:#56e6e2;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;background:
+  radial-gradient(ellipse at 10% 0%,#6e55ff2b,transparent 40%),
+  radial-gradient(ellipse at 90% 35%,#22c8ce14,transparent 35%),var(--bg);
+  color:var(--text);font-family:Inter,sans-serif;min-height:100vh;
+}
+body:before{
+  content:"";position:fixed;inset:0;pointer-events:none;opacity:.13;
+  background-image:linear-gradient(#fff1 1px,transparent 1px),
+  linear-gradient(90deg,#fff1 1px,transparent 1px);
+  background-size:35px 35px;
+}
+button,select{font:inherit}
+button{cursor:pointer}
+.app{position:relative;max-width:1050px;margin:auto;padding:20px 15px 40px}
+header{display:flex;justify-content:space-between;align-items:center;margin-bottom:45px}
+.brand{display:flex;align-items:center;gap:11px}
+.logo{
+  width:45px;height:45px;border-radius:15px;display:grid;place-items:center;
+  background:linear-gradient(135deg,#a89aff,#5b45df);
+  box-shadow:0 5px 30px #7865ff55
+}
+.logo svg{width:26px}
+.brand-name{font:700 17px "Space Grotesk",sans-serif;letter-spacing:.3px}
+.brand-sub{font-size:9px;color:var(--muted);letter-spacing:2px;margin-top:4px}
+.status{border:1px solid var(--line);padding:9px 12px;border-radius:30px;font-size:10px;color:#c7d0df}
+.status i{display:inline-block;width:7px;height:7px;background:#4fe5a0;border-radius:50%;margin-right:7px}
+.hero{text-align:center;margin-bottom:32px;animation:up .7s ease}
+.eyebrow{font-size:10px;letter-spacing:1.5px;color:#b7aaff;border:1px solid #8c79ff55;background:#8c79ff12;padding:8px 13px;border-radius:30px;display:inline-block}
+h1{font:700 clamp(37px,7vw,65px)/1.08 "Space Grotesk",sans-serif;letter-spacing:-2.5px;margin:20px 0 12px}
+.gradient{background:linear-gradient(100deg,#c9c0ff,#8975ff 50%,#63e9e2);background-clip:text;-webkit-background-clip:text;color:transparent}
+.hero p{font-size:12px;line-height:1.8;color:var(--muted);max-width:440px;margin:auto}
+.layout{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.panel{border:1px solid var(--line);border-radius:22px;padding:20px;background:linear-gradient(145deg,#ffffff0c,#ffffff03);backdrop-filter:blur(20px);box-shadow:0 20px 60px #0002;animation:up .7s ease both}
+.panel-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:19px}
+.panel-title{font-size:14px;font-weight:700}
+.caption{font-size:10px;color:var(--muted);margin-top:5px}
+.tag{font-size:9px;border:1px solid #8b7cff55;color:#b5a9ff;padding:7px 9px;border-radius:8px}
+.dropzone{min-height:220px;border:1px dashed #8579bb;border-radius:16px;background:#8975ff08;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;transition:.2s}
+.dropzone.drag,.dropzone:hover{border-color:#b1a5ff;background:#8975ff14}
+.upload-icon{width:53px;height:53px;display:grid;place-items:center;border:1px solid #8975ff55;background:#8975ff16;border-radius:17px;color:#b6aaff;margin-bottom:15px}
+.upload-icon svg{width:26px}
+.dropzone h3{font-size:13px;margin:0 0 8px}
+.dropzone p{font-size:10px;line-height:1.7;color:var(--muted);margin:0 0 16px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:11px;padding:12px 15px;font-size:11px;font-weight:700;transition:.2s}
+.btn svg{width:16px;height:16px}
+.primary{background:linear-gradient(120deg,#9887ff,#6651e8);color:white;box-shadow:0 7px 24px #7865ff30}
+.primary:hover{transform:translateY(-2px);filter:brightness(1.1)}
+.secondary{background:#ffffff08;border:1px solid var(--line);color:#dce1f0}
+.file-info{display:none;align-items:center;gap:10px;margin-top:12px;padding:11px;border:1px solid var(--line);border-radius:12px}
+.file-name{font-size:10px;font-weight:600;overflow-wrap:anywhere}
+.file-size{font-size:10px;color:var(--muted);margin-top:5px}
+.remove{margin-left:auto;border:0;background:none;color:#ff8e9e;font-size:20px}
+.label{font-size:10px;color:#c8cde0;font-weight:700;margin:21px 0 11px}
+.scales{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.scale{border:1px solid var(--line);border-radius:12px;background:#ffffff05;color:#bac2d5;padding:14px 4px}
+.scale strong{display:block;font:700 19px "Space Grotesk";margin-bottom:4px}
+.scale span{font-size:9px;color:var(--muted)}
+.scale.active{border-color:#9685ff;background:#8975ff1c;color:white}
+.scale.active strong{color:#b7aaff}
+.selects{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field label{display:block;font-size:9px;color:var(--muted);margin-bottom:8px}
+select{width:100%;padding:12px 9px;border:1px solid var(--line);border-radius:10px;background:#121522;color:white;font-size:11px}
+.full{width:100%;margin-top:19px;min-height:44px}
+.note{font-size:10px;color:var(--muted);line-height:1.7;margin-top:12px}
+.preview{min-height:285px;border:1px solid var(--line);border-radius:15px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;background-color:#10131d;background-image:linear-gradient(45deg,#ffffff09 25%,transparent 25%),linear-gradient(-45deg,#ffffff09 25%,transparent 25%),linear-gradient(45deg,transparent 75%,#ffffff09 75%),linear-gradient(-45deg,transparent 75%,#ffffff09 75%);background-size:20px 20px;background-position:0 0,0 10px,10px -10px,-10px 0}
+.empty{text-align:center;color:var(--muted);padding:25px}
+.empty svg{width:38px;margin-bottom:12px;opacity:.55}
+.empty strong{display:block;font-size:11px;color:#c2c8d9;margin-bottom:7px}
+.empty span{font-size:10px}
+#previewImage{display:none;max-width:100%;max-height:370px;object-fit:contain}
+.preview-tag{position:absolute;top:11px;left:11px;padding:7px 9px;border-radius:8px;background:#080a12cc;border:1px solid var(--line);font-size:9px;color:#c4baff}
+.dimensions{display:flex;justify-content:space-between;gap:8px;margin-top:15px}
+.stat{font-size:9px;color:var(--muted);line-height:1.8}
+.stat strong{display:block;color:#f0f1ff;font-size:11px}
+.result{display:none;margin-top:15px;padding:14px;border:1px solid #56e6e244;background:#56e6e209;border-radius:13px}
+.result-title{font-size:12px;color:#69e9cb;font-weight:700}
+.result p{font-size:10px;color:var(--muted);line-height:1.7}
+.result button{width:100%}
+.progress-wrap{display:none;margin-top:15px}
+.progress-info{display:flex;justify-content:space-between;font-size:10px;margin-bottom:8px;color:#ccd1e3}
+.progress{height:5px;border-radius:10px;background:#ffffff12;overflow:hidden}
+.bar{height:100%;width:0;background:linear-gradient(90deg,var(--purple),var(--cyan));transition:width .15s}
+footer{text-align:center;color:#687087;font-size:9px;letter-spacing:1px;margin-top:27px}
+footer span{color:#a496ff}
+@keyframes up{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* DOWNLOAD POPUP */
+.modal{position:fixed;inset:0;z-index:99;display:none;align-items:center;justify-content:center;padding:18px}
+.modal.show{display:flex}
+.overlay{position:absolute;inset:0;background:#02030bdc;backdrop-filter:blur(10px);animation:fade .2s}
+.dialog{position:relative;width:100%;max-width:370px;border:1px solid #ffffff20;border-radius:24px;padding:25px;background:linear-gradient(145deg,#17182b,#0b0d17 75%);box-shadow:0 30px 100px #0009;animation:pop .25s ease}
+.dialog:before{content:"";position:absolute;left:20%;right:20%;top:-1px;height:2px;background:linear-gradient(90deg,transparent,#9c8cff,transparent)}
+.modal-icon{width:57px;height:57px;border:1px solid #8975ff55;background:#8975ff18;color:#b6aaff;border-radius:18px;display:grid;place-items:center;margin:0 auto 17px}
+.modal-icon svg{width:27px}
+.modal-eyebrow{text-align:center;font-size:9px;letter-spacing:1.8px;color:#a99bff}
+.dialog h2{text-align:center;font:700 27px "Space Grotesk";letter-spacing:-1px;margin:12px 0}
+.dialog h2 span{color:#a395ff}
+.modal-description{text-align:center;color:#969eb3;font-size:11px;line-height:1.8;margin:0 0 20px}
+.file-card{display:flex;align-items:center;gap:11px;padding:12px;border:1px solid #ffffff12;border-radius:13px;background:#ffffff05}
+.file-card-icon{width:39px;height:39px;display:grid;place-items:center;background:#8975ff1b;color:#b5a8ff;border-radius:11px;flex-shrink:0}
+.file-card-icon svg{width:20px}
+.file-details{min-width:0;flex:1}
+.file-details strong{display:block;font-size:10px;overflow-wrap:anywhere}
+.file-details span{display:block;font-size:9px;color:#929bb0;margin-top:5px}
+.check{width:17px;color:#63e5c3}
+.actions{display:grid;grid-template-columns:.8fr 1.2fr;gap:9px;margin-top:20px}
+.actions button{min-height:44px}
+.cancel{border:1px solid #ffffff18;border-radius:11px;background:#ffffff06;color:#c6cbdb;font-size:11px;font-weight:600}
+.confirm{border:0;border-radius:11px;background:linear-gradient(120deg,#9785ff,#6852e9);color:white;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;gap:7px;box-shadow:0 7px 25px #7865ff35}
+.confirm svg{width:16px}
+.confirm:disabled{opacity:.5;cursor:wait}
+.modal-foot{text-align:center;color:#667087;font-size:8px;letter-spacing:1.2px;margin-top:19px}
+.modal-foot span{color:#9b8bff}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+@media(max-width:720px){
+ .app{padding:17px 12px 30px}
+ header{margin-bottom:37px}
+ .layout{grid-template-columns:1fr}
+ .panel{padding:16px}
+ .hero h1{letter-spacing:-1.5px}
+ .preview{min-height:245px}
+ .dialog{padding:23px 19px}
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+<header>
+  <div class="brand">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8">
+        <path d="M4 17 9 5l3 7 2-4 6 12H4Z" stroke-linejoin="round"/>
+        <circle cx="17.5" cy="5.5" r="2"/>
+      </svg>
+    </div>
+    <div>
+      <div class="brand-name">GOJO IMG HD</div>
+      <div class="brand-sub">IMAGE ENHANCEMENT STUDIO</div>
+    </div>
+  </div>
+  <div class="status"><i></i>SYSTEM READY</div>
+</header>
+
+<section class="hero">
+  <div class="eyebrow">IMAGE ENHANCEMENT TOOL</div>
+  <h1>Upgrade Your<br><span class="gradient">Image Quality.</span></h1>
+  <p>Perbesar resolusi gambar dengan tampilan premium. Pilih gambar, tentukan skala, preview hasil, lalu download.</p>
+</section>
+
+<main class="layout">
+<section class="panel">
+  <div class="panel-head">
+    <div><div class="panel-title">Image Workspace</div><div class="caption">Upload and configure your image</div></div>
+    <span class="tag">01 / EDIT</span>
+  </div>
+
+  <div class="dropzone" id="dropzone">
+    <div class="upload-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+        <path d="M12 16V4m-5 5 5-5 5 5"/><path d="M5 14v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-5"/>
+      </svg>
+    </div>
+    <h3>Drop your image here</h3>
+    <p>Pilih gambar dari galeri atau file manager.<br>PNG, JPG, WEBP didukung.</p>
+    <button class="btn primary" id="chooseBtn" type="button">Choose Image</button>
+    <input type="file" id="fileInput" accept="image/*" hidden>
+  </div>
+
+  <div class="file-info" id="fileInfo">
+    <div class="file-name" id="fileName">image.png</div>
+    <div class="file-size" id="fileSize">0 KB</div>
+    <button class="remove" id="removeBtn" type="button">×</button>
+  </div>
+
+  <div class="label">UPSCALE RESOLUTION</div>
+  <div class="scales">
+    <button class="scale active" data-scale="2" type="button"><strong>2×</strong><span>Double size</span></button>
+    <button class="scale" data-scale="4" type="button"><strong>4×</strong><span>Quad size</span></button>
+    <button class="scale" data-scale="8" type="button"><strong>8×</strong><span>Maximum size</span></button>
+  </div>
+
+  <div class="label">EXPORT SETTINGS</div>
+  <div class="selects">
+    <div class="field"><label for="format">OUTPUT FORMAT</label>
+      <select id="format"><option value="image/png">PNG</option><option value="image/jpeg">JPG</option><option value="image/webp">WEBP</option></select>
+    </div>
+    <div class="field"><label for="quality">IMAGE QUALITY</label>
+      <select id="quality"><option value="0.92">High — 92%</option><option value="1">Maximum — 100%</option><option value="0.8">Balanced — 80%</option></select>
+    </div>
+  </div>
+
+  <button class="btn primary full" id="processBtn" type="button">Enhance Image</button>
+
+  <div class="progress-wrap" id="progressWrap">
+    <div class="progress-info"><span id="progressText">Processing...</span><span id="progressPercent">0%</span></div>
+    <div class="progress"><div class="bar" id="progressBar"></div></div>
+  </div>
+  <div class="note">Upscale ini memperbesar dimensi gambar menggunakan browser, bukan AI super-resolution.</div>
+</section>
+
+<section class="panel">
+  <div class="panel-head">
+    <div><div class="panel-title">Live Preview</div><div class="caption">Preview your image before exporting</div></div>
+    <span class="tag">02 / VIEW</span>
+  </div>
+
+  <div class="preview">
+    <div class="empty" id="emptyPreview">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3">
+        <rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+      </svg>
+      <strong>No image selected</strong><span>Your preview appears here</span>
+    </div>
+    <img id="previewImage" alt="Image preview">
+    <div class="preview-tag" id="previewBadge">WAITING FOR IMAGE</div>
+  </div>
+
+  <div class="dimensions">
+    <div class="stat">SOURCE DIMENSIONS<strong id="sourceDimensions">— × —</strong></div>
+    <div class="stat" style="text-align:right">OUTPUT DIMENSIONS<strong id="outputDimensions">— × —</strong></div>
+  </div>
+
+  <div class="result" id="result">
+    <div class="result-title">Image successfully processed</div>
+    <p id="resultInfo">Your image is ready.</p>
+    <button class="btn primary" id="downloadBtn" type="button">Download Image</button>
+  </div>
+
+  <button class="btn secondary full" id="resetBtn" type="button">Reset Workspace</button>
+</section>
+</main>
+
+<footer>CREATED FOR IMAGE CREATORS <span>·</span> GOJO IMG HD</footer>
+</div>
+
+<!-- POPUP KONFIRMASI DOWNLOAD -->
+<div class="modal" id="downloadModal" aria-hidden="true">
+  <div class="overlay" id="downloadOverlay"></div>
+  <div class="dialog" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+        <rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+      </svg>
+    </div>
+    <div class="modal-eyebrow">GOJO IMG HD · DOWNLOAD</div>
+    <h2 id="modalTitle">Download <span>Image?</span></h2>
+    <p class="modal-description">Apakah kamu ingin mendownload gambar ini ke perangkat kamu?</p>
+
+    <div class="file-card">
+      <div class="file-card-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M12 3v12m-5-5 5 5 5-5"/><path d="M5 17v3h14v-3"/>
+        </svg>
+      </div>
+      <div class="file-details">
+        <strong id="confirmFileName">hd-image.png</strong>
+        <span id="confirmFileInfo">PNG · 0 MB</span>
+      </div>
+      <svg class="check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m5 12 4 4L19 6"/></svg>
+    </div>
+
+    <div class="actions">
+      <button class="cancel" id="cancelDownload" type="button">Cancel</button>
+      <button class="confirm" id="confirmDownload" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12m-5-5 5 5 5-5"/><path d="M5 17v3h14v-3"/></svg>
+        Download Now
+      </button>
+    </div>
+    <div class="modal-foot">READY TO SAVE <span>·</span> GOJO IMG HD</div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const $ = id => document.getElementById(id);
+  const fileInput = $('fileInput');
+  const dropzone = $('dropzone');
+  const previewImage = $('previewImage');
+  let sourceImage = null;
+  let sourceURL = null;
+  let outputBlob = null;
+  let outputFilename = 'gojo-img-hd.png';
+  let selectedScale = 2;
+  let processing = false;
+
+  function formatBytes(bytes) {
+    if (bytes < 1024) return bytes + ' B';
+    if (bytes < 1048576) return (bytes / 1024).toFixed(1) + ' KB';
+    return (bytes / 1048576).toFixed(2) + ' MB';
+  }
+
+  function updateDimensions() {
+    if (!sourceImage) return;
+    $('sourceDimensions').textContent =
+      sourceImage.naturalWidth + ' × ' + sourceImage.naturalHeight;
+    $('outputDimensions').textContent =
+      (sourceImage.naturalWidth * selectedScale) + ' × ' +
+      (sourceImage.naturalHeight * selectedScale);
+  }
+
+  function hideModal() {
+    $('downloadModal').classList.remove('show');
+    $('downloadModal').setAttribute('aria-hidden', 'true');
+  }
+
+  function showModal() {
+    if (!outputBlob) return;
+    $('confirmFileName').textContent = outputFilename;
+    $('confirmFileInfo').textContent =
+      outputBlob.type.split('/')[1].toUpperCase() + ' · ' +
+      formatBytes(outputBlob.size);
+    $('confirmDownload').disabled = false;
+    $('confirmDownload').innerHTML =
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12m-5-5 5 5 5-5"/><path d="M5 17v3h14v-3"/></svg> Download Now';
+    $('downloadModal').classList.add('show');
+    $('downloadModal').setAttribute('aria-hidden', 'false');
+  }
+
+  function clearResult() {
+    outputBlob = null;
+    $('result').style.display = 'none';
+    hideModal();
+  }
+
+  function loadFile(file) {
+    if (!file) return;
+    if (!file.type.startsWith('image/')) {
+      alert('Pilih file gambar yang valid.');
+      return;
+    }
+    if (file.size > 25 * 1024 * 1024) {
+      alert('Ukuran gambar maksimal 25 MB.');
+      return;
+    }
+
+    clearResult();
+    if (sourceURL) URL.revokeObjectURL(sourceURL);
+    sourceURL = URL.createObjectURL(file);
+
+    const img = new Image();
+    img.onload = () => {
+      sourceImage = img;
+      previewImage.src = sourceURL;
+      previewImage.style.display = 'block';
+      $('emptyPreview').style.display = 'none';
+      $('previewBadge').textContent = 'SOURCE IMAGE';
+      $('fileInfo').style.display = 'flex';
+      $('fileName').textContent = file.name;
+      $('fileSize').textContent = formatBytes(file.size);
+      updateDimensions();
+    };
+    img.onerror = () => alert('Gambar tidak dapat dibuka.');
+    img.src = sourceURL;
+  }
+
+  $('chooseBtn').addEventListener('click', () => fileInput.click());
+  dropzone.addEventListener('click', e => {
+    if (!e.target.closest('button')) fileInput.click();
+  });
+  fileInput.addEventListener('change', e => {
+    loadFile(e.target.files[0]);
+    fileInput.value = '';
+  });
+
+  ['dragenter','dragover'].forEach(name => dropzone.addEventListener(name, e => {
+    e.preventDefault();
+    dropzone.classList.add('drag');
+  }));
+  ['dragleave','drop'].forEach(name => dropzone.addEventListener(name, e => {
+    e.preventDefault();
+    dropzone.classList.remove('drag');
+  }));
+  dropzone.addEventListener('drop', e => loadFile(e.dataTransfer.files[0]));
+
+  document.querySelectorAll('.scale').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.scale').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      selectedScale = Number(btn.dataset.scale);
+      updateDimensions();
+      clearResult();
+    });
+  });
+
+  $('format').addEventListener('change', clearResult);
+  $('quality').addEventListener('change', clearResult);
+  $('downloadBtn').addEventListener('click', showModal);
+  $('cancelDownload').addEventListener('click', hideModal);
+  $('downloadOverlay').addEventListener('click', hideModal);
+
+  $('confirmDownload').addEventListener('click', () => {
+    if (!outputBlob) return;
+    const url = URL.createObjectURL(outputBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = outputFilename;
+    link.style.display = 'none';
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    hideModal();
+
+    // Keep the object URL alive briefly so the browser can begin downloading.
+    setTimeout(() => URL.revokeObjectURL(url), 60000);
+  });
+
+  $('processBtn').addEventListener('click', async () => {
+    if (!sourceImage) {
+      alert('Pilih gambar terlebih dahulu.');
+      return;
+    }
+    if (processing) return;
+
+    const width = sourceImage.naturalWidth * selectedScale;
+    const height = sourceImage.naturalHeight * selectedScale;
+
+    if (width * height > 40000000) {
+      alert('Resolusi output terlalu besar. Pilih skala yang lebih kecil.');
+      return;
+    }
+
+    processing = true;
+    $('processBtn').disabled = true;
+    clearResult();
+    $('progressWrap').style.display = 'block';
+
+    try {
+      const canvas = document.createElement('canvas');
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+      if (!ctx) throw new Error('Browser tidak mendukung pemrosesan gambar.');
+
+      $('progressText').textContent = 'Enhancing image...';
+      $('progressBar').style.width = '30%';
+      $('progressPercent').textContent = '30%';
+      await new Promise(resolve => setTimeout(resolve, 100));
+
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(sourceImage, 0, 0, width, height);
+
+      $('progressText').textContent = 'Creating output file...';
+      $('progressBar').style.width = '70%';
+      $('progressPercent').textContent = '70%';
+
+      const mime = $('format').value;
+      outputBlob = await new Promise((resolve, reject) => {
+        canvas.toBlob(blob => {
+          if (blob) resolve(blob);
+          else reject(new Error('Gagal membuat file. Coba format lain.'));
+        }, mime, Number($('quality').value));
+      });
+
+      const ext = mime === 'image/jpeg' ? 'jpg' :
+                  mime === 'image/webp' ? 'webp' : 'png';
+      outputFilename = 'gojo-img-hd-' + width + 'x' + height + '.' + ext;
+
+      $('progressBar').style.width = '100%';
+      $('progressPercent').textContent = '100%';
+      $('progressText').textContent = 'Completed';
+      $('resultInfo').textContent =
+        width + ' × ' + height + ' pixels · ' + formatBytes(outputBlob.size);
+      $('result').style.display = 'block';
+      $('previewBadge').textContent = 'ENHANCED · ' + selectedScale + '×';
+    } catch (err) {
+      outputBlob = null;
+      alert(err.message || 'Gagal memproses gambar.');
+    } finally {
+      processing = false;
+      $('processBtn').disabled = false;
+    }
+  });
+
+  function resetWorkspace() {
+    if (processing) return;
+    hideModal();
+    if (sourceURL) URL.revokeObjectURL(sourceURL);
+    sourceURL = null;
+    sourceImage = null;
+    outputBlob = null;
+    previewImage.removeAttribute('src');
+    previewImage.style.display = 'none';
+    $('emptyPreview').style.display = 'block';
+    $('fileInfo').style.display = 'none';
+    $('result').style.display = 'none';
+    $('progressWrap').style.display = 'none';
+    $('previewBadge').textContent = 'WAITING FOR IMAGE';
+    $('sourceDimensions').textContent = '— × —';
+    $('outputDimensions').textContent = '— × —';
+    fileInput.value = '';
+  }
+
+  $('removeBtn').addEventListener('click', resetWorkspace);
+  $('resetBtn').addEventListener('click', resetWorkspace);
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') hideModal();
+  });
+})();
+</script>
+</body>
+</html>
